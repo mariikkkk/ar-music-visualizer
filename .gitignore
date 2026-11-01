@@ -1,6 +1,9 @@
-# Результаты сборки отчёта
-docs/report/build/
+# Локальные материалы и инструменты подготовки отчёта
+docs/report/
+models/README.md
 node_modules/
+__pycache__/
+src/output/
 
 # Системные и временные файлы
 .DS_Store

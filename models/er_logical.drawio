@@ -1,0 +1,104 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="er_logical" name="Логическая модель данных">
+    <mxGraphModel dx="2079" dy="1118" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1730" pageHeight="1190" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="track" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="Track — трек" vertex="1">
+          <mxGeometry height="235" width="430" x="70" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="track_fields" parent="track" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK track_id&#xa;title&#xa;source_uri&#xa;sample_rate&#xa;sample_count" vertex="1">
+          <mxGeometry height="188" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="profile" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="AnalysisProfile — профиль" vertex="1">
+          <mxGeometry height="210" width="430" x="650" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="profile_fields" parent="profile" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK profile_id&#xa;name&#xa;frame_size&#xa;hop_size" vertex="1">
+          <mxGeometry height="163" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="run" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="AnalysisRun — анализ" vertex="1">
+          <mxGeometry height="235" width="430" x="70" y="465" as="geometry" />
+        </mxCell>
+        <mxCell id="run_fields" parent="run" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK run_id&#xa;FK track_id&#xa;FK profile_id&#xa;analyzer_version&#xa;started_at" vertex="1">
+          <mxGeometry height="188" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="frame" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="AnalysisFrame — признаки" vertex="1">
+          <mxGeometry height="235" width="430" x="650" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="frame_fields" parent="frame" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK frame_id&#xa;FK run_id&#xa;frame_index&#xa;rms&#xa;centroid_hz" vertex="1">
+          <mxGeometry height="188" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="preset" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="VisualPreset — пресет" vertex="1">
+          <mxGeometry height="235" width="430" x="1230" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="preset_fields" parent="preset" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK preset_id&#xa;name&#xa;smoothing_alpha&#xa;brightness_gain&#xa;hue_offset" vertex="1">
+          <mxGeometry height="188" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="session" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="VisualizationSession — сеанс" vertex="1">
+          <mxGeometry height="210" width="430" x="1230" y="465" as="geometry" />
+        </mxCell>
+        <mxCell id="session_fields" parent="session" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK session_id&#xa;FK run_id&#xa;FK preset_id&#xa;started_at" vertex="1">
+          <mxGeometry height="163" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="visual" parent="1" style="swimlane;startSize=47;horizontal=1;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=27;fillColor=white;strokeColor=black;" value="VisualFrame — параметры" vertex="1">
+          <mxGeometry height="205" width="430" x="650" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="visual_fields" parent="visual" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Times New Roman;fontSize=25;" value="PK, FK session_id&#xa;PK, FK frame_id&#xa;brightness&#xa;hue" vertex="1">
+          <mxGeometry height="158" width="430" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="shape=text;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=26;fillColor=white;strokeColor=black;strokeColor=none;fillColor=none;" value="Обозначения: || — ровно один; ○&lt; — от нуля до многих. " vertex="1">
+          <mxGeometry height="55" width="1590" x="70" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="rule" parent="1" style="shape=text;whiteSpace=wrap;html=0;fontFamily=Times New Roman;fontSize=26;fillColor=white;strokeColor=black;strokeColor=none;fillColor=none;" value="M:N треков и профилей разрешена через AnalysisRun. Ключ VisualFrame составной: (session_id, frame_id)." vertex="1">
+          <mxGeometry height="55" width="1590" x="70" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="track" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryPerimeter=0;" target="run" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="profile" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0.0;exitY=0.6190476190476191;exitPerimeter=0;entryX=0.813953488372093;entryY=0.0;entryPerimeter=0;" target="run" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="220" />
+              <mxPoint x="570" y="400" />
+              <mxPoint x="420" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="run" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=1.0;exitY=0.40425531914893614;exitPerimeter=0;entryX=0.0;entryY=0.5106382978723404;entryPerimeter=0;" target="frame" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="run" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=1.0;exitY=0.7872340425531915;exitPerimeter=0;entryX=0.0;entryY=0.5238095238095238;entryPerimeter=0;" target="session" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="650" />
+              <mxPoint x="570" y="735" />
+              <mxPoint x="1160" y="735" />
+              <mxPoint x="1160" y="575" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="preset" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryPerimeter=0;" target="session" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="frame" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryPerimeter=0;" target="visual" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="session" style="edgeStyle=none;rounded=0;html=0;fontFamily=Times New Roman;fontSize=23;strokeColor=black;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;exitX=0.5;exitY=1.0;exitPerimeter=0;entryX=1.0;entryY=0.4878048780487805;entryPerimeter=0;" target="visual" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1445" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

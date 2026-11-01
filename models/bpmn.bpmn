@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_ARviz" targetNamespace="https://mirea.ru/student/arviz">
+  <bpmn:process id="Process_ARSession" name="Настройка и проведение сеанса AR-визуализации музыкального трека" isExecutable="false">
+    <bpmn:laneSet id="Process_ARSession_lanes">
+      <bpmn:lane id="listener" name="Слушатель">
+        <bpmn:flowNodeRef>start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>choose</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>position</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="app" name="Приложение">
+        <bpmn:flowNodeRef>validate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>valid</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>error</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>prepare</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>begin</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>next</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>fft</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>features</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>map</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>save</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>display</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>close</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="start" name="Слушатель решил включить AR-визуализацию трека">
+      <bpmn:outgoing>Process_ARSession_flow0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="choose" name="Выбрать трек и пресет">
+      <bpmn:incoming>Process_ARSession_flow0</bpmn:incoming>
+      <bpmn:incoming>Process_ARSession_flow4</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="position" name="Разместить объекты и подтвердить запуск">
+      <bpmn:incoming>Process_ARSession_flow6</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="end" name="Слушатель получил визуальное сопровождение трека, сеанс завершён">
+      <bpmn:incoming>Process_ARSession_flow16</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="validate" name="Проверить исходные данные">
+      <bpmn:incoming>Process_ARSession_flow1</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="valid" name="Данные подходят?">
+      <bpmn:incoming>Process_ARSession_flow2</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow3</bpmn:outgoing>
+      <bpmn:outgoing>Process_ARSession_flow5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="error" name="Сообщить об ошибке">
+      <bpmn:incoming>Process_ARSession_flow3</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="prepare" name="Подготовить AR-сцену">
+      <bpmn:incoming>Process_ARSession_flow5</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="begin" name="Создать анализ и сеанс">
+      <bpmn:incoming>Process_ARSession_flow7</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="next" name="Сеанс активен и есть полный кадр?">
+      <bpmn:incoming>Process_ARSession_flow8</bpmn:incoming>
+      <bpmn:incoming>Process_ARSession_flow15</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow9</bpmn:outgoing>
+      <bpmn:outgoing>Process_ARSession_flow10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="fft" name="Рассчитать спектр кадра">
+      <bpmn:incoming>Process_ARSession_flow9</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow11</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="features" name="Извлечь признаки кадра">
+      <bpmn:incoming>Process_ARSession_flow11</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow12</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="map" name="Сформировать параметры визуализации">
+      <bpmn:incoming>Process_ARSession_flow12</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow13</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:task id="save" name="Сохранить результат кадра">
+      <bpmn:incoming>Process_ARSession_flow13</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow14</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="display" name="Обновить объекты AR-сцены">
+      <bpmn:incoming>Process_ARSession_flow14</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow15</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="close" name="Завершить сеанс">
+      <bpmn:incoming>Process_ARSession_flow10</bpmn:incoming>
+      <bpmn:outgoing>Process_ARSession_flow16</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:dataObject id="track_object"/>
+    <bpmn:dataObjectReference id="track" name="Трек (Track)" dataObjectRef="track_object"/>
+    <bpmn:dataObject id="preset_object"/>
+    <bpmn:dataObjectReference id="preset" name="Пресет (VisualPreset)" dataObjectRef="preset_object"/>
+    <bpmn:dataObject id="profile_object"/>
+    <bpmn:dataObjectReference id="profile" name="Профиль анализа (AnalysisProfile)" dataObjectRef="profile_object"/>
+    <bpmn:dataObject id="run_object"/>
+    <bpmn:dataObjectReference id="run" name="Анализ (AnalysisRun)" dataObjectRef="run_object"/>
+    <bpmn:dataObject id="session_object"/>
+    <bpmn:dataObjectReference id="session" name="Сеанс (VisualizationSession)" dataObjectRef="session_object"/>
+    <bpmn:dataObject id="frame_object"/>
+    <bpmn:dataObjectReference id="frame" name="Признаки кадра (AnalysisFrame)" dataObjectRef="frame_object"/>
+    <bpmn:dataObject id="visual_object"/>
+    <bpmn:dataObjectReference id="visual" name="Параметры кадра (VisualFrame)" dataObjectRef="visual_object"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow0" sourceRef="start" targetRef="choose"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow1" sourceRef="choose" targetRef="validate"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow2" sourceRef="validate" targetRef="valid"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow3" sourceRef="valid" targetRef="error" name="Нет"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow4" sourceRef="error" targetRef="choose"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow5" sourceRef="valid" targetRef="prepare" name="Да"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow6" sourceRef="prepare" targetRef="position"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow7" sourceRef="position" targetRef="begin"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow8" sourceRef="begin" targetRef="next"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow9" sourceRef="next" targetRef="fft" name="Да"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow10" sourceRef="next" targetRef="close" name="Нет"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow11" sourceRef="fft" targetRef="features"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow12" sourceRef="features" targetRef="map"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow13" sourceRef="map" targetRef="save"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow14" sourceRef="save" targetRef="display"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow15" sourceRef="display" targetRef="next"/>
+    <bpmn:sequenceFlow id="Process_ARSession_flow16" sourceRef="close" targetRef="end"/>
+    <bpmn:association id="Process_ARSession_flow17" sourceRef="track" targetRef="choose" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow18" sourceRef="preset" targetRef="choose" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow19" sourceRef="profile" targetRef="validate" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow20" sourceRef="begin" targetRef="run" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow21" sourceRef="begin" targetRef="session" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow22" sourceRef="features" targetRef="frame" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow23" sourceRef="map" targetRef="visual" associationDirection="One"/>
+    <bpmn:association id="Process_ARSession_flow24" sourceRef="visual" targetRef="display" associationDirection="One"/>
+  </bpmn:process>
+  <bpmn:collaboration id="Process_ARSession_collaboration">
+    <bpmn:participant id="Process_ARSession_pool" name="Настройка и проведение сеанса AR-визуализации музыкального трека" processRef="Process_ARSession"/>
+  </bpmn:collaboration>
+  <bpmndi:BPMNDiagram id="Process_ARSession_diagram" name="Настройка и проведение сеанса AR-визуализации музыкального трека">
+    <bpmndi:BPMNPlane id="Process_ARSession_plane" bpmnElement="Process_ARSession_collaboration">
+      <bpmndi:BPMNShape id="Process_ARSession_pool_di" bpmnElement="Process_ARSession_pool" isHorizontal="true">
+        <dc:Bounds x="-20" y="0" width="1059" height="722"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="listener_di" bpmnElement="listener" isHorizontal="true">
+        <dc:Bounds x="0" y="20" width="1039" height="209"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="app_di" bpmnElement="app" isHorizontal="true">
+        <dc:Bounds x="0" y="229" width="1039" height="493"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start">
+        <dc:Bounds x="59.0" y="87.0" width="20.0" height="20.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="35" y="114" width="70" height="70"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="choose_di" bpmnElement="choose">
+        <dc:Bounds x="127.0" y="77.0" width="121.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="position_di" bpmnElement="position">
+        <dc:Bounds x="554.0" y="117.0" width="147.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_di" bpmnElement="end">
+        <dc:Bounds x="914.0" y="137.0" width="20.0" height="20.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="830" y="108" width="205" height="35"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="validate_di" bpmnElement="validate">
+        <dc:Bounds x="131.5" y="264.0" width="112.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="valid_di" bpmnElement="valid">
+        <dc:Bounds x="316.0" y="269.0" width="40.0" height="40.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="285" y="250" width="105" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="error_di" bpmnElement="error">
+        <dc:Bounds x="404.0" y="264.0" width="117.0" height="51.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="prepare_di" bpmnElement="prepare">
+        <dc:Bounds x="396.0" y="373.0" width="133.0" height="57.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="begin_di" bpmnElement="begin">
+        <dc:Bounds x="759.0" y="264.0" width="93.0" height="42.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="next_di" bpmnElement="next">
+        <dc:Bounds x="677.0" y="463.0" width="40.0" height="40.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="508" y="507" width="180" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="fft_di" bpmnElement="fft">
+        <dc:Bounds x="503.0" y="463.0" width="116.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="features_di" bpmnElement="features">
+        <dc:Bounds x="356.0" y="455.0" width="110.0" height="48.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="map_di" bpmnElement="map">
+        <dc:Bounds x="207.5" y="455.0" width="114.0" height="48.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="save_di" bpmnElement="save">
+        <dc:Bounds x="100.0" y="610.0" width="94.0" height="47.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="display_di" bpmnElement="display">
+        <dc:Bounds x="345.5" y="610.0" width="109.0" height="48.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="close_di" bpmnElement="close">
+        <dc:Bounds x="785.5" y="463.0" width="99.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="track_di" bpmnElement="track">
+        <dc:Bounds x="356.0" y="157.0" width="88.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="preset_di" bpmnElement="preset">
+        <dc:Bounds x="231.0" y="157.0" width="71.5" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="profile_di" bpmnElement="profile">
+        <dc:Bounds x="167.5" y="349.0" width="40.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="run_di" bpmnElement="run">
+        <dc:Bounds x="785.5" y="336.0" width="40.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="session_di" bpmnElement="session">
+        <dc:Bounds x="661.0" y="260.0" width="40.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="frame_di" bpmnElement="frame">
+        <dc:Bounds x="454.5" y="528.0" width="40.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="visual_di" bpmnElement="visual">
+        <dc:Bounds x="245.0" y="528.0" width="40.0" height="50.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow0_di" bpmnElement="Process_ARSession_flow0">
+        <di:waypoint x="79.0" y="97.24"/>
+        <di:waypoint x="118.24" y="97.43"/>
+        <di:waypoint x="127.0" y="97.43"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow1_di" bpmnElement="Process_ARSession_flow1">
+        <di:waypoint x="187.5" y="117.0"/>
+        <di:waypoint x="187.5" y="254.88"/>
+        <di:waypoint x="187.5" y="264.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow2_di" bpmnElement="Process_ARSession_flow2">
+        <di:waypoint x="243.5" y="289.0"/>
+        <di:waypoint x="306.88" y="289.0"/>
+        <di:waypoint x="316.0" y="289.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow3_di" bpmnElement="Process_ARSession_flow3">
+        <di:waypoint x="356.06" y="289.24"/>
+        <di:waypoint x="394.88" y="289.24"/>
+        <di:waypoint x="404.0" y="289.24"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="355.47" y="267.24" width="40" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow4_di" bpmnElement="Process_ARSession_flow4">
+        <di:waypoint x="521.0" y="289.47"/>
+        <di:waypoint x="525.53" y="289.47"/>
+        <di:waypoint x="527.5118749999999" y="288.8450000000001"/>
+        <di:waypoint x="528.9275" y="286.97"/>
+        <di:waypoint x="529.7768749999999" y="283.845"/>
+        <di:waypoint x="530.06" y="279.47"/>
+        <di:waypoint x="530.06" y="107.0"/>
+        <di:waypoint x="529.435" y="102.625"/>
+        <di:waypoint x="527.56" y="99.5"/>
+        <di:waypoint x="524.435" y="97.625"/>
+        <di:waypoint x="520.06" y="97.0"/>
+        <di:waypoint x="257.12" y="97.0"/>
+        <di:waypoint x="248.0" y="97.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow5_di" bpmnElement="Process_ARSession_flow5">
+        <di:waypoint x="336.06" y="309.0"/>
+        <di:waypoint x="336.06" y="392.06"/>
+        <di:waypoint x="336.685" y="396.435"/>
+        <di:waypoint x="338.56" y="399.56"/>
+        <di:waypoint x="341.685" y="401.435"/>
+        <di:waypoint x="346.06" y="402.06"/>
+        <di:waypoint x="386.88" y="402.06"/>
+        <di:waypoint x="396.0" y="402.06"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316.06" y="328.53" width="40" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow6_di" bpmnElement="Process_ARSession_flow6">
+        <di:waypoint x="529.0" y="401.47"/>
+        <di:waypoint x="617.47" y="401.47"/>
+        <di:waypoint x="621.845" y="400.8450000000001"/>
+        <di:waypoint x="624.97" y="398.97"/>
+        <di:waypoint x="626.845" y="395.845"/>
+        <di:waypoint x="627.47" y="391.47"/>
+        <di:waypoint x="627.47" y="166.12"/>
+        <di:waypoint x="627.47" y="157.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow7_di" bpmnElement="Process_ARSession_flow7">
+        <di:waypoint x="701.0" y="137.0"/>
+        <di:waypoint x="795.47" y="137.0"/>
+        <di:waypoint x="799.8449999999999" y="137.625"/>
+        <di:waypoint x="802.97" y="139.5"/>
+        <di:waypoint x="804.845" y="142.625"/>
+        <di:waypoint x="805.47" y="147.0"/>
+        <di:waypoint x="805.47" y="254.88"/>
+        <di:waypoint x="805.47" y="264.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow8_di" bpmnElement="Process_ARSession_flow8">
+        <di:waypoint x="852.06" y="283.35"/>
+        <di:waypoint x="882.06" y="283.35"/>
+        <di:waypoint x="886.4349999999998" y="283.975"/>
+        <di:waypoint x="889.56" y="285.85"/>
+        <di:waypoint x="891.435" y="288.975"/>
+        <di:waypoint x="892.06" y="293.35"/>
+        <di:waypoint x="892.06" y="417.0"/>
+        <di:waypoint x="891.4349999999998" y="421.375"/>
+        <di:waypoint x="889.56" y="424.5"/>
+        <di:waypoint x="886.435" y="426.375"/>
+        <di:waypoint x="882.06" y="427.0"/>
+        <di:waypoint x="707.0" y="427.0"/>
+        <di:waypoint x="702.625" y="427.625"/>
+        <di:waypoint x="699.5" y="429.5"/>
+        <di:waypoint x="697.625" y="432.625"/>
+        <di:waypoint x="697.0" y="437.0"/>
+        <di:waypoint x="697.0" y="453.88"/>
+        <di:waypoint x="697.0" y="463.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow9_di" bpmnElement="Process_ARSession_flow9">
+        <di:waypoint x="677.0" y="483.0"/>
+        <di:waypoint x="628.12" y="483.0"/>
+        <di:waypoint x="619.0" y="483.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="632.56" y="461.0" width="40" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow10_di" bpmnElement="Process_ARSession_flow10">
+        <di:waypoint x="717.0" y="483.0"/>
+        <di:waypoint x="776.38" y="483.0"/>
+        <di:waypoint x="785.5" y="483.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="726.69" y="461.0" width="40" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow11_di" bpmnElement="Process_ARSession_flow11">
+        <di:waypoint x="503.0" y="481.0"/>
+        <di:waypoint x="475.12" y="481.0"/>
+        <di:waypoint x="466.0" y="481.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow12_di" bpmnElement="Process_ARSession_flow12">
+        <di:waypoint x="356.0" y="479.0"/>
+        <di:waypoint x="330.62" y="479.0"/>
+        <di:waypoint x="321.5" y="479.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow13_di" bpmnElement="Process_ARSession_flow13">
+        <di:waypoint x="207.5" y="479.0"/>
+        <di:waypoint x="157.0" y="479.0"/>
+        <di:waypoint x="152.625" y="479.625"/>
+        <di:waypoint x="149.5" y="481.5"/>
+        <di:waypoint x="147.625" y="484.625"/>
+        <di:waypoint x="147.0" y="489.0"/>
+        <di:waypoint x="147.0" y="600.88"/>
+        <di:waypoint x="147.0" y="610.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow14_di" bpmnElement="Process_ARSession_flow14">
+        <di:waypoint x="193.94" y="633.76"/>
+        <di:waypoint x="336.38" y="633.76"/>
+        <di:waypoint x="345.5" y="633.76"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow15_di" bpmnElement="Process_ARSession_flow15">
+        <di:waypoint x="454.5" y="634.06"/>
+        <di:waypoint x="686.76" y="634.06"/>
+        <di:waypoint x="691.135" y="633.4349999999998"/>
+        <di:waypoint x="694.26" y="631.56"/>
+        <di:waypoint x="696.135" y="628.435"/>
+        <di:waypoint x="696.76" y="624.06"/>
+        <di:waypoint x="696.76" y="512.47"/>
+        <di:waypoint x="696.76" y="503.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow16_di" bpmnElement="Process_ARSession_flow16">
+        <di:waypoint x="884.5" y="483.0"/>
+        <di:waypoint x="914.06" y="483.0"/>
+        <di:waypoint x="918.4349999999998" y="482.375"/>
+        <di:waypoint x="921.56" y="480.5"/>
+        <di:waypoint x="923.435" y="477.375"/>
+        <di:waypoint x="924.06" y="473.0"/>
+        <di:waypoint x="924.06" y="166.12"/>
+        <di:waypoint x="924.06" y="157.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow17_di" bpmnElement="Process_ARSession_flow17">
+        <di:waypoint x="400.06" y="157.0"/>
+        <di:waypoint x="400.06" y="137.0"/>
+        <di:waypoint x="399.435" y="132.625"/>
+        <di:waypoint x="397.56" y="129.5"/>
+        <di:waypoint x="394.435" y="127.625"/>
+        <di:waypoint x="390.06" y="127.0"/>
+        <di:waypoint x="247.94" y="127.0"/>
+        <di:waypoint x="243.565" y="126.80875"/>
+        <di:waypoint x="240.44" y="126.235"/>
+        <di:waypoint x="238.565" y="125.27875"/>
+        <di:waypoint x="237.94" y="123.94"/>
+        <di:waypoint x="237.94" y="120.88"/>
+        <di:waypoint x="237.94" y="117.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow18_di" bpmnElement="Process_ARSession_flow18">
+        <di:waypoint x="266.76" y="157.0"/>
+        <di:waypoint x="266.76" y="149.53"/>
+        <di:waypoint x="266.135" y="146.261875"/>
+        <di:waypoint x="264.26" y="143.9275"/>
+        <di:waypoint x="261.135" y="142.526875"/>
+        <di:waypoint x="256.76" y="142.06"/>
+        <di:waypoint x="226.06" y="142.06"/>
+        <di:waypoint x="221.685" y="141.435"/>
+        <di:waypoint x="218.56" y="139.56"/>
+        <di:waypoint x="216.685" y="136.435"/>
+        <di:waypoint x="216.06" y="132.06"/>
+        <di:waypoint x="216.06" y="119.24"/>
+        <di:waypoint x="216.06" y="117.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow19_di" bpmnElement="Process_ARSession_flow19">
+        <di:waypoint x="187.5" y="349.0"/>
+        <di:waypoint x="187.5" y="316.24"/>
+        <di:waypoint x="187.5" y="314.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow20_di" bpmnElement="Process_ARSession_flow20">
+        <di:waypoint x="805.24" y="306.06"/>
+        <di:waypoint x="805.02" y="334.06"/>
+        <di:waypoint x="805.02" y="336.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow21_di" bpmnElement="Process_ARSession_flow21">
+        <di:waypoint x="759.0" y="285.0"/>
+        <di:waypoint x="703.24" y="285.0"/>
+        <di:waypoint x="701.0" y="285.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow22_di" bpmnElement="Process_ARSession_flow22">
+        <di:waypoint x="411.0" y="503.0"/>
+        <di:waypoint x="411.0" y="509.24"/>
+        <di:waypoint x="411.625" y="511.965625"/>
+        <di:waypoint x="413.5" y="513.9125"/>
+        <di:waypoint x="416.625" y="515.080625"/>
+        <di:waypoint x="421.0" y="515.47"/>
+        <di:waypoint x="464.53" y="515.47"/>
+        <di:waypoint x="468.9049999999999" y="515.7918750000001"/>
+        <di:waypoint x="472.03" y="516.7575"/>
+        <di:waypoint x="473.905" y="518.3668749999999"/>
+        <di:waypoint x="474.53" y="520.62"/>
+        <di:waypoint x="474.53" y="525.76"/>
+        <di:waypoint x="474.53" y="528.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow23_di" bpmnElement="Process_ARSession_flow23">
+        <di:waypoint x="264.76" y="503.0"/>
+        <di:waypoint x="264.76" y="525.76"/>
+        <di:waypoint x="264.76" y="528.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Process_ARSession_flow24_di" bpmnElement="Process_ARSession_flow24">
+        <di:waypoint x="285.0" y="553.0"/>
+        <di:waypoint x="390.29" y="553.0"/>
+        <di:waypoint x="394.665" y="553.625"/>
+        <di:waypoint x="397.79" y="555.5"/>
+        <di:waypoint x="399.665" y="558.625"/>
+        <di:waypoint x="400.29" y="563.0"/>
+        <di:waypoint x="400.29" y="608.18"/>
+        <di:waypoint x="400.29" y="610.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
