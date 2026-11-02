@@ -123,6 +123,12 @@ def main(argv=None):
             ids = (1, 1, 1)
         else:
             input_path, output_path = Path(args.data), Path(args.out)
+            same_file = input_path.resolve() == output_path.resolve()
+            if not same_file and output_path.exists():
+                same_file = input_path.samefile(output_path)
+            require(not same_file,
+                    "Входной JSON и файл результата должны быть разными. "
+                    "Укажите другой путь в --out")
             ids = (args.track, args.profile, args.preset)
         data = json.loads(input_path.read_text(encoding="utf-8"))
         data, run_id, session_id = process_track(data, *ids, input_path.parent)

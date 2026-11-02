@@ -5,6 +5,8 @@ from copy import deepcopy
 import json
 import math
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 
 from algorithms import calculate_spectrum, extract_features, map_visual_frame
@@ -113,11 +115,54 @@ def check_short_audio_and_metadata():
         expect_error(process_track, data, 1, 1, 1, directory)
 
 
+def check_input_file_is_not_overwritten():
+    with tempfile.TemporaryDirectory() as directory:
+        source = create_demo(directory)
+        original = source.read_bytes()
+        folder = Path(directory)
+        (folder / "nested").mkdir()
+        outputs = [(str(source), 1), ("input.json", 1),
+                   ("nested/../input.json", 1), ("result.json", 0),
+                   ("fresh/result.json", 0)]
+        # Ссылки проверяем там, где их поддерживает файловая система.
+        symbolic = folder / "input-link.json"
+        try:
+            symbolic.symlink_to(source)
+        except (OSError, NotImplementedError):
+            pass
+        else:
+            outputs.append((str(symbolic), 1))
+        hard_link = folder / "input-hardlink.json"
+        try:
+            hard_link.hardlink_to(source)
+        except (OSError, NotImplementedError):
+            pass
+        else:
+            outputs.append((str(hard_link), 1))
+        # Отдельный существующий файл результата можно перезаписывать.
+        (folder / "result.json").write_text("старый результат", encoding="utf-8")
+        program = Path(__file__).with_name("main.py").resolve()
+        for output, expected_code in outputs:
+            result = subprocess.run(
+                [sys.executable, str(program), "analyze", "--data", "input.json",
+                 "--out", output], cwd=directory, capture_output=True, text=True)
+            assert result.returncode == expected_code, (output, result.stdout, result.stderr)
+            assert source.read_bytes() == original, "Входной JSON изменился"
+            if expected_code == 1:
+                assert "Входной JSON" in result.stderr
+                assert not result.stdout
+            else:
+                assert not result.stderr
+                saved = json.loads((folder / output).read_text(encoding="utf-8"))
+                validate_data(saved)
+                assert len(saved["frames"]) == len(saved["visual_frames"]) == 61
+
+
 def main():
     checks = [check_fft_against_dft, check_fft_invalid_size, check_silence_and_empty,
               check_known_tone, check_feature_arguments, check_mapping,
               check_full_pipeline_and_keys, check_integrity_errors,
-              check_short_audio_and_metadata]
+              check_short_audio_and_metadata, check_input_file_is_not_overwritten]
     for check in checks:
         check()
         print(f"OK {check.__name__}")
