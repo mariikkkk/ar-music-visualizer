@@ -74,13 +74,23 @@ def validate_data(data):
         require(number(preset["hue_offset"]) and 0 <= preset["hue_offset"] < 1,
                 "Сдвиг оттенка должен быть в [0; 1)")
 
+    # Индексы строятся после проверки формата и уникальности ключей.
+    tracks = {row["track_id"]: row for row in data["tracks"]}
+    profiles = {row["profile_id"] for row in data["profiles"]}
+    presets = {row["preset_id"] for row in data["presets"]}
+    runs = {row["run_id"]: row for row in data["runs"]}
+    frames = {row["frame_id"]: row for row in data["frames"]}
+    sessions = {row["session_id"]: row for row in data["sessions"]}
+
     for run in data["runs"]:
-        find_record(data["tracks"], "track_id", run["track_id"])
-        find_record(data["profiles"], "profile_id", run["profile_id"])
+        require(run["track_id"] in tracks, f"Запись track_id={run['track_id']} не найдена")
+        require(run["profile_id"] in profiles, f"Запись profile_id={run['profile_id']} не найдена")
     frame_positions = set()
     for frame in data["frames"]:
-        run = find_record(data["runs"], "run_id", frame["run_id"])
-        track = find_record(data["tracks"], "track_id", run["track_id"])
+        require(frame["run_id"] in runs, f"Запись run_id={frame['run_id']} не найдена")
+        run = runs[frame["run_id"]]
+        require(run["track_id"] in tracks, f"Запись track_id={run['track_id']} не найдена")
+        track = tracks[run["track_id"]]
         require(type(frame["frame_index"]) is int and frame["frame_index"] >= 0,
                 "Индекс кадра должен быть неотрицательным целым")
         position = (frame["run_id"], frame["frame_index"])
@@ -92,11 +102,13 @@ def validate_data(data):
                 0 <= frame["centroid_hz"] <= track["sample_rate"] / 2,
                 "Центроид должен лежать в диапазоне частот трека")
     for session in data["sessions"]:
-        find_record(data["runs"], "run_id", session["run_id"])
-        find_record(data["presets"], "preset_id", session["preset_id"])
+        require(session["run_id"] in runs, f"Запись run_id={session['run_id']} не найдена")
+        require(session["preset_id"] in presets, f"Запись preset_id={session['preset_id']} не найдена")
     for row in data["visual_frames"]:
-        session = find_record(data["sessions"], "session_id", row["session_id"])
-        frame = find_record(data["frames"], "frame_id", row["frame_id"])
+        require(row["session_id"] in sessions, f"Запись session_id={row['session_id']} не найдена")
+        session = sessions[row["session_id"]]
+        require(row["frame_id"] in frames, f"Запись frame_id={row['frame_id']} не найдена")
+        frame = frames[row["frame_id"]]
         require(frame["run_id"] == session["run_id"], "Кадр относится к другому анализу")
         require(number(row["brightness"]) and 0 <= row["brightness"] <= 1,
                 "Яркость должна быть в [0; 1]")
