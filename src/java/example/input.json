@@ -1,0 +1,32 @@
+{
+  "tracks": [
+    {
+      "track_id": 1,
+      "title": "Синус 1000 Гц",
+      "source_uri": "demo.wav",
+      "sample_rate": 8000,
+      "sample_count": 8000
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": 1,
+      "name": "Кадр 256",
+      "frame_size": 256,
+      "hop_size": 128
+    }
+  ],
+  "presets": [
+    {
+      "preset_id": 1,
+      "name": "Спокойный",
+      "smoothing_alpha": 0.25,
+      "brightness_gain": 2.0,
+      "hue_offset": 0.0
+    }
+  ],
+  "runs": [],
+  "frames": [],
+  "sessions": [],
+  "visual_frames": []
+}

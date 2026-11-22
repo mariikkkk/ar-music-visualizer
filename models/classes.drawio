@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="classes" name="Диаграмма классов">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1565" pageHeight="1265" background="#ffffff" arrows="1" connect="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Track" parent="1" vertex="1" value="«record»&lt;br&gt;Track" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="850" y="430" width="275" height="192" />
+        </mxCell>
+        <mxCell id="Track-fields" parent="Track" vertex="1" value="- track_id : int&lt;br&gt;- title : String&lt;br&gt;- source_uri : String&lt;br&gt;- sample_rate : int&lt;br&gt;- sample_count : int" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="275" height="112" />
+        </mxCell>
+        <mxCell id="Track-methods" parent="Track" vertex="1" value="~ read(directory : Path) : double[]" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="160" width="275" height="32" />
+        </mxCell>
+        <mxCell id="AnalysisProfile" parent="1" vertex="1" value="«record»&lt;br&gt;AnalysisProfile" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="445" y="430" width="250" height="140" />
+        </mxCell>
+        <mxCell id="AnalysisProfile-fields" parent="AnalysisProfile" vertex="1" value="- profile_id : int&lt;br&gt;- name : String&lt;br&gt;- frame_size : int&lt;br&gt;- hop_size : int" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="250" height="92" />
+        </mxCell>
+        <mxCell id="AnalysisFrame" parent="1" vertex="1" value="«record»&lt;br&gt;AnalysisFrame" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="840" y="955" width="260" height="160" />
+        </mxCell>
+        <mxCell id="AnalysisFrame-fields" parent="AnalysisFrame" vertex="1" value="- frame_id : int&lt;br&gt;- run_id : int&lt;br&gt;- frame_index : int&lt;br&gt;- rms : double&lt;br&gt;- centroid_hz : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="260" height="112" />
+        </mxCell>
+        <mxCell id="VisualFrame" parent="1" vertex="1" value="«record»&lt;br&gt;VisualFrame" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="1200" y="955" width="300" height="140" />
+        </mxCell>
+        <mxCell id="VisualFrame-fields" parent="VisualFrame" vertex="1" value="- session_id : int&lt;br&gt;- frame_id : int&lt;br&gt;- brightness : double&lt;br&gt;- hue : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="300" height="92" />
+        </mxCell>
+        <mxCell id="VisualizationSession" parent="1" vertex="1" value="«record»&lt;br&gt;VisualizationSession" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="1200" y="695" width="330" height="140" />
+        </mxCell>
+        <mxCell id="VisualizationSession-fields" parent="VisualizationSession" vertex="1" value="- session_id : int&lt;br&gt;- run_id : int&lt;br&gt;- preset_id : int&lt;br&gt;- started_at : String" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="330" height="92" />
+        </mxCell>
+        <mxCell id="AnalysisRun" parent="1" vertex="1" value="«record»&lt;br&gt;AnalysisRun" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="410" y="695" width="375" height="212" />
+        </mxCell>
+        <mxCell id="AnalysisRun-fields" parent="AnalysisRun" vertex="1" value="- run_id : int&lt;br&gt;- track_id : int&lt;br&gt;- profile_id : int&lt;br&gt;- analyzer_version : String&lt;br&gt;- started_at : String" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="375" height="112" />
+        </mxCell>
+        <mxCell id="AnalysisRun-methods" parent="AnalysisRun" vertex="1" value="~ analyze(samples : double[], profile : AnalysisProfile,&lt;br&gt;rate : int, firstId : int) : List&amp;lt;AnalysisFrame&amp;gt;" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="160" width="375" height="52" />
+        </mxCell>
+        <mxCell id="VisualPreset" parent="1" vertex="1" value="«record»&lt;br&gt;VisualPreset" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="1200" y="435" width="330" height="232" />
+        </mxCell>
+        <mxCell id="VisualPreset-fields" parent="VisualPreset" vertex="1" value="- preset_id : int&lt;br&gt;- name : String&lt;br&gt;- smoothing_alpha : double&lt;br&gt;- brightness_gain : double&lt;br&gt;- hue_offset : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="330" height="112" />
+        </mxCell>
+        <mxCell id="VisualPreset-methods" parent="VisualPreset" vertex="1" value="~ map(session : VisualizationSession, frame :&lt;br&gt;AnalysisFrame, previous : double, rate : int) :&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;VisualFrame" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="72" />
+        </mxCell>
+        <mxCell id="Dataset" parent="1" vertex="1" value="Dataset" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="805" y="45" width="580" height="356" />
+        </mxCell>
+        <mxCell id="Dataset-fields" parent="Dataset" vertex="1" value="- tracks : List&amp;lt;Track&amp;gt;&lt;br&gt;- profiles : List&amp;lt;AnalysisProfile&amp;gt;&lt;br&gt;- presets : List&amp;lt;VisualPreset&amp;gt;&lt;br&gt;- runs : List&amp;lt;AnalysisRun&amp;gt;&lt;br&gt;- frames : List&amp;lt;AnalysisFrame&amp;gt;&lt;br&gt;- sessions : List&amp;lt;VisualizationSession&amp;gt;&lt;br&gt;- visual_frames : List&amp;lt;VisualFrame&amp;gt;" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="580" height="152" />
+        </mxCell>
+        <mxCell id="Dataset-methods" parent="Dataset" vertex="1" value="~ process(directory : Path, trackId : int, profileId : int, presetId : int) : String&lt;br&gt;&lt;u&gt;- add(index : Map&amp;lt;Integer,T&amp;gt;, id : int, row : T) : void&lt;/u&gt;&lt;br&gt;&lt;u&gt;- lookup(map : Map&amp;lt;Integer,T&amp;gt;, id : int) : T&lt;/u&gt;&lt;br&gt;- checkFrames(runsById : Map&amp;lt;Integer,AnalysisRun&amp;gt;, tracksById :&lt;br&gt;Map&amp;lt;Integer,Track&amp;gt;) : void&lt;br&gt;- checkVisualFrames(framesById : Map&amp;lt;Integer,AnalysisFrame&amp;gt;, sessionsById :&lt;br&gt;Map&amp;lt;Integer,VisualizationSession&amp;gt;) : void&lt;br&gt;&lt;u&gt;- next(map : Map&amp;lt;Integer,?&amp;gt;) : int&lt;/u&gt;" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="184" width="580" height="172" />
+        </mxCell>
+        <mxCell id="Feature" parent="1" vertex="1" value="«interface»&lt;br&gt;Feature" style="swimlane;horizontal=1;html=1;startSize=48;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="35" y="695" width="300" height="100" />
+        </mxCell>
+        <mxCell id="Feature-methods" parent="Feature" vertex="1" value="+ measure(frame : double[], spectrum :&lt;br&gt;double[], rate : int) : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="48" width="300" height="52" />
+        </mxCell>
+        <mxCell id="SpectralFeature" parent="1" vertex="1" value="&lt;i&gt;SpectralFeature&lt;/i&gt;" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="365" y="940" width="330" height="104" />
+        </mxCell>
+        <mxCell id="SpectralFeature-methods" parent="SpectralFeature" vertex="1" value="&lt;i&gt;# valueAt(hz : double) : double&lt;/i&gt;&lt;br&gt;+ measure(frame : double[], spectrum :&lt;br&gt;double[], rate : int) : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="330" height="72" />
+        </mxCell>
+        <mxCell id="Rms" parent="1" vertex="1" value="Rms" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="35" y="940" width="260" height="104" />
+        </mxCell>
+        <mxCell id="Rms-methods" parent="Rms" vertex="1" value="+ measure(frame : double[],&lt;br&gt;spectrum : double[], rate : int) :&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="260" height="72" />
+        </mxCell>
+        <mxCell id="Centroid" parent="1" vertex="1" value="Centroid" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="375" y="1145" width="315" height="64" />
+        </mxCell>
+        <mxCell id="Centroid-methods" parent="Centroid" vertex="1" value="# valueAt(hz : double) : double" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="315" height="32" />
+        </mxCell>
+        <mxCell id="Spectrum" parent="1" vertex="1" value="Spectrum" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="35" y="435" width="285" height="104" />
+        </mxCell>
+        <mxCell id="Spectrum-methods" parent="Spectrum" vertex="1" value="~ calculate(frame : double[]) : double[]&lt;br&gt;- fft(real : double[], imag : double[]) :&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;void" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="285" height="72" />
+        </mxCell>
+        <mxCell id="InputJson" parent="1" vertex="1" value="InputJson" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="330" y="45" width="365" height="144" />
+        </mxCell>
+        <mxCell id="InputJson-methods" parent="InputJson" vertex="1" value="&lt;u&gt;~ read(path : Path, gson : Gson) : Dataset&lt;/u&gt;&lt;br&gt;&lt;u&gt;- checkTable(root : JsonObject, name : String,&lt;/u&gt;&lt;br&gt;&lt;u&gt;fields : String...) : void&lt;/u&gt;&lt;br&gt;&lt;u&gt;- checkValue(field : String, element : JsonElement) :&lt;/u&gt;&lt;br&gt;&lt;u&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;void&lt;/u&gt;" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="365" height="112" />
+        </mxCell>
+        <mxCell id="Main" parent="1" vertex="1" value="Main" style="swimlane;horizontal=1;html=1;startSize=32;rounded=0;collapsible=0;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontStyle=1;fillColor=#E9F0F6;swimlaneFillColor=#FFFFFF;strokeColor=#354B5C;fontColor=#182D3C;">
+          <mxGeometry as="geometry" x="35" y="45" width="220" height="64" />
+        </mxCell>
+        <mxCell id="Main-methods" parent="Main" vertex="1" value="&lt;u&gt;+ main(args : String[]) : void&lt;/u&gt;" style="html=1;align=left;verticalAlign=middle;spacingLeft=9;fontFamily=Arial;fontSize=15;whiteSpace=nowrap;fillColor=#FFFFFF;strokeColor=#354B5C;connectable=0;">
+          <mxGeometry as="geometry" x="0" y="32" width="220" height="32" />
+        </mxCell>
+        <mxCell id="Main-InputJson" parent="1" edge="1" source="Main" target="InputJson" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=1;exitY=0.5;entryX=0;entryY=0.5;endArrow=open;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="Main-Dataset" parent="1" edge="1" source="Main" target="Dataset" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=0;entryX=0.17;entryY=0;endArrow=open;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="145.0" y="18" />
+              <mxPoint x="903.6" y="18" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="InputJson-Dataset" parent="1" edge="1" source="InputJson" target="Dataset" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=1;exitY=0.5;entryX=0;entryY=0.5;endArrow=open;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="Dataset-Track" parent="1" edge="1" source="Dataset" target="Track" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.315;exitY=1;entryX=0.5;entryY=0;startArrow=diamond;startFill=0;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="Dataset-Track0" parent="Dataset-Track" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dataset-Track1" parent="Dataset-Track" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Track-AnalysisRun" parent="1" edge="1" source="Track" target="AnalysisRun" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=1;entryX=0.85;entryY=0;startArrow=none;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="987.5" y="642" />
+              <mxPoint x="728.75" y="642" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Track-AnalysisRun0" parent="Track-AnalysisRun" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Track-AnalysisRun1" parent="Track-AnalysisRun" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisProfile-AnalysisRun" parent="1" edge="1" source="AnalysisProfile" target="AnalysisRun" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=1;entryX=0.4266666666666667;entryY=0;startArrow=none;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="AnalysisProfile-AnalysisRun0" parent="AnalysisProfile-AnalysisRun" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisProfile-AnalysisRun1" parent="AnalysisProfile-AnalysisRun" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VisualPreset-VisualizationSession" parent="1" edge="1" source="VisualPreset" target="VisualizationSession" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=1;entryX=0.5;entryY=0;startArrow=none;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="VisualPreset-VisualizationSession0" parent="VisualPreset-VisualizationSession" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VisualPreset-VisualizationSession1" parent="VisualPreset-VisualizationSession" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-VisualizationSession" parent="1" edge="1" source="AnalysisRun" target="VisualizationSession" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=none;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="AnalysisRun-VisualizationSession0" parent="AnalysisRun-VisualizationSession" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-VisualizationSession1" parent="AnalysisRun-VisualizationSession" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-AnalysisFrame" parent="1" edge="1" source="AnalysisRun" target="AnalysisFrame" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.85;exitY=1;entryX=0.5;entryY=0;startArrow=diamond;startFill=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="728.75" y="929" />
+              <mxPoint x="970.0" y="929" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-AnalysisFrame0" parent="AnalysisRun-AnalysisFrame" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-AnalysisFrame1" parent="AnalysisRun-AnalysisFrame" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VisualizationSession-VisualFrame" parent="1" edge="1" source="VisualizationSession" target="VisualFrame" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.45454545454545453;exitY=1;entryX=0.5;entryY=0;startArrow=diamond;startFill=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="VisualizationSession-VisualFrame0" parent="VisualizationSession-VisualFrame" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VisualizationSession-VisualFrame1" parent="VisualizationSession-VisualFrame" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="15" y="0" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisFrame-VisualFrame" parent="1" edge="1" source="AnalysisFrame" target="VisualFrame" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=1;exitY=0.5;entryX=0;entryY=0.5;startArrow=none;endArrow=none;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="AnalysisFrame-VisualFrame0" parent="AnalysisFrame-VisualFrame" vertex="1" connectable="0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="-0.89" relative="1">
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisFrame-VisualFrame1" parent="AnalysisFrame-VisualFrame" vertex="1" connectable="0" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=14;fontFamily=Arial;labelBackgroundColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="0.89" relative="1">
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AnalysisRun-Feature" parent="1" edge="1" source="AnalysisRun" target="Feature" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0;exitY=0.5;entryX=1;entryY=0.5;endArrow=open;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="AnalysisRun-Spectrum" parent="1" edge="1" source="AnalysisRun" target="Spectrum" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0;exitY=0.18;entryX=1;entryY=0.5;endArrow=open;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="360" y="733.16" />
+              <mxPoint x="360" y="487.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Rms-Feature" parent="1" edge="1" source="Rms" target="Feature" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=0;entryX=0.43333333333333335;entryY=1;endArrow=block;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="SpectralFeature-Feature" parent="1" edge="1" source="SpectralFeature" target="Feature" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=0;entryX=0.82;entryY=1;endArrow=block;endFill=0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="530.0" y="924" />
+              <mxPoint x="281.0" y="924" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Centroid-SpectralFeature" parent="1" edge="1" source="Centroid" target="SpectralFeature" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=0;entryX=0.5075757575757576;entryY=1;endArrow=block;endFill=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

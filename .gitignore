@@ -12,3 +12,10 @@ src/output/
 # Настройки редакторов
 .idea/
 .vscode/
+
+*.class
+target/
+build/
+out/
+.gradle/
+src/java/output/
