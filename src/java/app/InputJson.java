@@ -59,7 +59,12 @@ final class InputJson {
             }
             default -> {
                 if (!value.isNumber()) throw new IllegalArgumentException("Ожидается целое число: " + field);
-                int number = value.getAsBigDecimal().intValueExact();
+                int number;
+                try {
+                    number = Integer.parseInt(value.getAsString());
+                } catch (NumberFormatException error) {
+                    throw new IllegalArgumentException("Ожидается целое число в диапазоне int: " + field);
+                }
                 int minimum = field.equals("frame_index") ? 0 : 1;
                 if (number < minimum) throw new IllegalArgumentException("Недопустимое значение: " + field);
             }
