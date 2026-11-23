@@ -46,6 +46,10 @@ record AnalysisRun(int run_id, int track_id, int profile_id, String analyzer_ver
         Feature centroid = new Centroid();
         int size = profile.frame_size();
         if (samples.length < size) throw new IllegalArgumentException("Трек короче кадра");
+        int lastIndex = (samples.length - size) / profile.hop_size();
+        if (lastIndex > Integer.MAX_VALUE - firstId) {
+            throw new IllegalArgumentException("Недостаточно свободных идентификаторов кадров");
+        }
         for (int start = 0; start <= samples.length - size; start += profile.hop_size()) {
             double[] frame = Arrays.copyOfRange(samples, start, start + size);
             double[] magnitudes = spectrum.calculate(frame);
