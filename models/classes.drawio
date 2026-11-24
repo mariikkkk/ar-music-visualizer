@@ -260,6 +260,7 @@
         <mxCell id="Centroid-SpectralFeature" parent="1" edge="1" source="Centroid" target="SpectralFeature" style="noEdgeStyle=1;rounded=0;strokeColor=#354B5C;strokeWidth=1.5;startSize=12;endSize=12;exitX=0.5;exitY=0;entryX=0.5075757575757576;entryY=1;endArrow=block;endFill=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
+        <mxCell id="frames-storage-note" parent="1" vertex="1" value="Dataset хранит AnalysisFrame и VisualFrame в списках.&lt;br&gt;AnalysisFrame связан с анализом по run_id.&lt;br&gt;VisualFrame связан с сеансом по session_id&lt;br&gt;и с кадром анализа по frame_id." style="rounded=0;html=1;align=left;verticalAlign=middle;spacingLeft=12;fontFamily=Arial;fontSize=16;fillColor=#F4F7FA;strokeColor=#607789;fontColor=#182D3C;"><mxGeometry as="geometry" x="265" y="250" width="475" height="100" /></mxCell>
       </root>
     </mxGraphModel>
   </diagram>
